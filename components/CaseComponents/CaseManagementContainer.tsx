@@ -20,7 +20,10 @@ import AddCategoryModal from "./Modals/AddCategoryModal";
 */
 export const ManagementContainerQuery = `
 query MyQuery {
-  __typename 
+  category {
+    name
+    id
+  }
 }
 `;
 // END TODO
@@ -40,20 +43,19 @@ const CaseManagementContainer: React.FC = (props) => {
   const [{ data, fetching, error }, executeQuery] = useQuery({
     query: ManagementContainerQuery,
   });
+  if (!data) return <div>Loading...</div>;
+
 
   return (
     <>
       <h5 className="title">Home Page</h5>
-      <Grid container spacing={3}>
-        {/*
-          FEATURE 1 TODO:
-          Use the data from the result of the query to render 
-          a CaseCategory for every category in the response.
-          Remember, the response is stored in the "data" variable!
-        */}
-
-        {/* END TODO */}
-      </Grid>
+      {data.category.map((c:any) => {
+      return(
+        <Grid container spacing={3} key = {c.id}>
+          <CaseCategory category_id = {c.id} />
+        </Grid>
+      );
+      })}
 
       <AddCaseModal
         onClose={() => setAddCaseModalOpen(false)}

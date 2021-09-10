@@ -26,6 +26,7 @@ const CategoryQuery = `
 }
 `;
 
+
 const CaseCategory = (props: CaseCategoryProps) => {
   const category_id = props.category_id;
   const [{ data, fetching, error }, executeQuery] = useQuery({
